@@ -1,11 +1,9 @@
 SCENARIO BRIEF - Onboarding Agent
 
 CONTEXT
-This repo is a beginner-friendly workshop for students learning how to
-build an AI agent. The concrete use case is employee onboarding for the
-Meridian Financial Services engineering team in Hyderabad.
+This repo is a beginner-friendly to build an AI agent. The concrete use case is employee onboarding for the Meridian Financial Services engineering team in Hyderabad.
 
-The teaching goal is not just to "make the code run". The goal is to
+The goal is not just to "make the code run". The goal is to
 show how an agent reasons, decides when to call tools, asks for human
 confirmation, and respects policy rules while completing a real workflow.
 
@@ -74,5 +72,5 @@ EXPECTED AGENT BEHAVIOUR
   6. Send a welcome notification.
   7. Complete with a short summary.
 
-This scenario is the worked example students use when they learn how to
+This scenario is the example to learn how to
 build an onboarding AI agent end to end.

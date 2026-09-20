@@ -1,6 +1,6 @@
 """
 Onboarding Agent
-Meridian Financial Services workshop repo
+Author: Prachi Pandya
 
 ReAct loop: Reason · Act · Observe · Repeat
 
@@ -16,6 +16,7 @@ import json
 import argparse
 import importlib.util
 from datetime import datetime
+from groq import Groq
 
 # ── PATHS ─────────────────────────────────────────────────────────
 ROOT          = os.path.dirname(os.path.abspath(__file__))
@@ -25,6 +26,22 @@ PROMPT_PATH   = os.path.join(ROOT, 'system_prompt.md')
 EMPLOYEES_DB  = os.path.join(DATA_DIR, 'employees.json')
 COMPLIANCE_DB = os.path.join(DATA_DIR, 'compliance_state.json')
 CACHE_PATH    = os.path.join(DATA_DIR, 'session_cache.json')
+
+# Load environment variables from .env if present
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(ROOT, '.env'))
+except ImportError:
+    _env_path = os.path.join(ROOT, '.env')
+    if os.path.exists(_env_path):
+        with open(_env_path, 'r', encoding='utf-8') as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if _line and not _line.startswith('#') and '=' in _line:
+                    _k, _v = _line.split('=', 1)
+                    _k, _v = _k.strip(), _v.strip().strip('"\'')
+                    if _k and _k not in os.environ:
+                        os.environ[_k] = _v
 
 
 # ── SESSION CACHE ────────────────────────────────────────────────
@@ -119,7 +136,6 @@ TOOL_SCHEMAS = [
 
 def call_llm(prompt: str) -> str:
     """Call the configured LLM provider. Default: Groq Llama 3.3 70B."""
-    from groq import Groq
     api_key = os.environ.get('GROQ_API_KEY')
     if not api_key:
         raise RuntimeError("GROQ_API_KEY not set. Run: export GROQ_API_KEY=your-key")
@@ -404,8 +420,8 @@ def dry_run() -> None:
 
     print("\n" + "=" * 60)
     print("Dry run complete. To run the agent:")
-    print("  $env:GROQ_API_KEY='your-key'")
-    print("  python agent.py --employee EMP-2026-0847")
+    print("  1. Add your GROQ_API_KEY into .env (or set via environment)")
+    print("  2. Run: uv run python agent.py --employee EMP-2026-0847")
 
 
 # ── CLI ──────────────────────────────────────────────────────────
