@@ -1,9 +1,11 @@
 # Onboarding Agent
 
-Beginner-friendly workshop repo for building an onboarding AI agent.
-The goal is to help students learn the full path from prompt to working
-agent: read the scenario, understand the tools, run the code, and open a
-pull request with a real change.
+**Author:** Prachi Pandya
+
+An onboarding AI agent built from first principles.
+The goal is to demonstrate the full path from prompt to working
+agent: read the scenario, understand the tools, run the code, and explore
+agentic workflows.
 
 ## Start here
 
@@ -12,7 +14,7 @@ pull request with a real change.
 3. Read [docs/offline_guide.md](docs/offline_guide.md) - setup, Git, and PR steps
 4. Read [docs/resources.md](docs/resources.md)
 5. Skim [system_prompt.md](system_prompt.md) and [agent.py](agent.py)
-6. Run `python agent.py --dry-run`
+6. Run `uv run python agent.py --dry-run`
 7. Do the exercise in [docs/first_task.md](docs/first_task.md) and open a PR
 
 ## What this repo demonstrates
@@ -27,6 +29,39 @@ The implementation uses a small, transparent ReAct loop so students can
 see the control flow without a framework hiding it.
 
 ## Quick start
+
+### Fast setup with `uv` (Recommended)
+
+```powershell
+# 1. Create virtual environment
+uv venv
+
+# 2. Install dependencies
+uv pip install -r requirements.txt
+
+# 3. Configure API key in .env
+# Edit .env and paste your GROQ_API_KEY
+
+# 4. Verify environment
+uv run python agent.py --dry-run
+
+# 5. Run agent CLI
+uv run python agent.py --employee EMP-2026-0847
+uv run python agent.py --employee EMP-2026-0847 --no-enforcement
+
+# 6. Run interactive Web Demo
+uv run streamlit run streamlit_app.py
+```
+
+### 🌐 1-Click Free Cloud Deployment (Streamlit Community Cloud)
+You can keep this agent permanently deployed for free online:
+1. Push this repository to GitHub.
+2. Visit [share.streamlit.io](https://share.streamlit.io) and log in with GitHub.
+3. Click **Create app** -> Select this repository (`onboarding-agent`) -> Main file `streamlit_app.py`.
+4. (Optional) In *Advanced settings -> Secrets*, add `GROQ_API_KEY = "gsk_..."`.
+5. Click **Deploy** to get your 24/7 public shareable demo link!
+
+### Standard Python setup
 
 Windows PowerShell:
 
@@ -52,10 +87,15 @@ python agent.py --employee EMP-2026-0847
 python agent.py --employee EMP-2026-0847 --no-enforcement
 ```
 
-The full run requires a `GROQ_API_KEY`. Get one free at
-<https://console.groq.com> (sign up, then create an API key). The free tier is
-enough for this workshop. The offline guide walks through the setup, virtual
-environment, API key, and GitHub pull request flow step by step.
+### API Keys
+
+The agent uses Groq to run `llama-3.3-70b-versatile`.
+1. Get a free API key from **[Groq Console](https://console.groq.com)** (sign up -> API Keys -> Create API Key).
+2. Open the `.env` file in the project root and replace `your_groq_api_key_here` with your actual key:
+   ```env
+   GROQ_API_KEY=gsk_your_actual_key_here
+   ```
+3. The `.env` file is automatically ignored by Git (`.gitignore`) so your key is kept safe and local.
 
 ## Repo layout
 
